@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% load static custom_filters %}
+{% block title %}payment{% endblock title %}
+
+{% block main-content %}
+<form method="post">
+    {% csrf_token %}
+    <section class="gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">YOUR CARDS</h2>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px; display: flex; flex-direction: column; align-items: center; background-color: black;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="bg-indigo text-white" style="background: black; display: flex; flex-wrap: wrap; border: 2px solid white;">
+                                    {% for card in user_cards %}
+                                        <div class="col-md-6"> <!-- Add this div to create a column layout -->
+                                            <div class="card" style="width: 20rem; margin: 2rem; padding: 15px; background: black; color: white; border: 2px solid white;">
+                                                <p>{% with card_number=card.card_number|decrypt_value %}
+                                                    ************{{ card_number|slice:"-4:" }}
+                                                    {% endwith %}</p>
+                                                <p>{{ card.expiration_date }}</p>
+                                                <p>***</p>
+                                                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                                    <a href="{% url 'edit_card' payment_id=card.payment_id %}">Edit</a>
+                                                    <a href="{% url 'delete_card' payment_id=card.payment_id %}">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 100%; margin: 2rem; padding: 3rem; display: flex; flex-direction: row; justify-content: space-between;">
+                    <a class="btn btn-primary button-style" href="{% url 'profile' %}" type="button">Back</a>
+                    <button class="btn btn-primary button-style" type="submit">Add New Card</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock main-content %}

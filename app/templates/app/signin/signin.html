@@ -1,0 +1,67 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Signin{% endblock title %}
+
+{% block main-content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card text-black" style="border-radius: 1rem; background-color: black; border: 2px solid white;">
+                    <div class="card-body p-5 text-center">
+
+                        <div class="mt-md-4">
+
+                            <h2 class="fw-bold mb-5 text-uppercase">Login</h2>
+                            {% if auth_failed %}
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Login failed!</strong> If you don't have an account, <strong><a href="{% url 'signup' %}"> Create</a></strong> an account here!
+                            </div>
+                             {% endif %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-outline form-black mb-4">
+                                    <input type="text" name="email_accountid" id="typeEmailX" class="form-control form-control-lg" placeholder="Email / Account ID">
+                                </div>
+
+                                <div class="form-outline form-black mb-4">
+                                    <input type="password" name="password" id="typePasswordX" class="form-control form-control-lg" placeholder="Password">
+                                </div>
+                                <div class="form-check mb-4" style="color: white; display: flex; flex-direction: row; justify-content: center;">
+                                    <input type="checkbox" 
+                                    style="margin-right:10px"
+                                    class="form-check-input" id="rememberMe" name="remember_me">
+                                    <label class="form-check-label" for="rememberMe">  Remember me</label>
+                                </div>
+                                <div class="login-btn">
+                                    <button class="btn btn-primary button-style" type="submit">Login</button>
+                                </div>
+                            </form>
+                            <p class="small pb-lg-2"><a class="text-white-50" href="{% url 'fPEnterEmail' %}">Forgot password?</a></p>
+                        </div>
+                        <div>
+                            <p class="mb-0 text-white">Don't have an account? <a href="{% url 'signup' %}" class="text-white-50 fw-bold">Sign Up</a>
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-0 text-white">Admin? <a href="/admin/" class="text-white-50 fw-bold">Sign in here</a>
+                            </p>
+                        </div>
+                        <script>
+                        {% if user_not_found %}
+                            alert("Account does not exist. Please register");
+                        {% endif %}
+                        </script>
+                        <script>
+                          {% if auth_failed %}
+                              alert("Authentication failed. Please check your credentials.");
+                          {% endif %}
+                      </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

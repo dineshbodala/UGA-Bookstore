@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Page Title</title>
+    <link rel="stylesheet" type="text/css" href="track_order.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+    <script src="https://use.fontawesome.com/releases/v5.7.2/css/all.css" ></script>
+</head>
+<body style="background:black;">
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title mx-auto">Order Status<br>AWB Number-5335T5S</h4>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="progress-track">
+                  <ul id="progressbar">
+                      <li class="step0 active " id="step1">Order placed</li>
+                      <li class="step0 active text-center" id="step2">In Transit</li>
+                      <li class="step0 active text-right" id="step3"><span id="three">Out for Delivery</span></li>
+                      <li class="step0 text-right" id="step4">Delivered</li>
+                  </ul>
+              </div>
+              <div class="row">
+                <div class="col-9">
+                  <div class="details d-table" style="display: flex;font-size: 20px;">
+                    <div class="d-table-row">
+                      <div class="d-table-cell">
+                        Shipped with:
+                      </div>
+                      <div class="d-table-cell">
+                        UPS Expedited
+                      </div>
+                    </div>
+                    <div class="d-table-row">
+                      <div class="d-table-cell">
+                        Estimated Delivery:
+                      </div>
+                      <div class="d-table-cell">
+                        02/12/2017
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <button href="#" onclick="goBack()" type="button" style="border: none;
+                    color: black;
+                    padding: 15px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    background: #0d6efd;
+                    border-radius: 1rem;">Back</button>
+                  </div>
+                  <script>
+                    function goBack() {
+                        window.history.go(-1);
+                    }
+                </script>
+                </div>
+              </div>      
+            </div>                  
+        </div>
+      </div>
+      </div>
+    </body>
+</html>
+

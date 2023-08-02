@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}address{% endblock title %}
+
+{% block main-content %}
+<form method="get">
+    {% csrf_token %}
+    <section class="gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="text-center">
+                <h2 class="fw-bold mb-3 text-uppercase">YOUR ADDRESSES</h2>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px; background-color: black; display: flex; flex-direction: column; align-items: center;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="bg-indigo text-white" style="background: black; display: flex; flex-wrap: wrap; border: 2px solid white;">
+                                    {% for address in user_addresses %}
+                                        <div class="col-md-6"> <!-- Add this div to create a column layout -->
+                                            <div class="card" style="margin: 2rem; padding: 15px; background: black; color: white; border: 2px solid white;">
+                                                <p>
+                                                    {{ address.street_address }}<br>
+                                                    {{ address.city }}<br>
+                                                    {{ address.state }}<br>
+                                                    {{ address.zip_code }}<br>
+                                                    {{ address.contact_phone }}<br>
+                                                    {{ address.contact_email }}
+                                                </p>
+                                                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                                    <a href="{% url 'edit_address' address_id=address.address_id %}">Edit</a>
+                                                    <a href="{% url 'delete_address' address_id=address.address_id %}">Delete</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 100%; margin: 2rem; padding: 3rem; display: flex; flex-direction: row; justify-content: space-between;">
+                    <a class="btn btn-primary button-style" href="{% url 'profile' %}" type="button">Back</a>
+                    <a class="btn btn-primary button-style" href="{% url 'new_address' %}" type="button">Add New Address</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock main-content %}

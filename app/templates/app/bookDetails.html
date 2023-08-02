@@ -1,0 +1,163 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}BookDetails{% endblock title %}
+
+{% block main-content %}
+<section class="gradient-custom book-details-section">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card text-black" style="border-radius: 1rem; background-color: black; width: fit-content; border: 2px solid white;">
+          <div class="card-body p-5 text-center bd-card-body">
+            <img src="{{book.cover.url}}" alt="No Image" style="height: 20rem; width: 15rem;">
+            <div class="details-container">
+              <h1><div class="fw-bold">{{book.title}}</div></h1>
+              <div class="rating">
+                {% for i in "12345" %}
+                {% if book.rating >= forloop.counter %}
+                <span class="star" style="color: gold;">&#9733;</span>
+                {% else %}
+                <span class="star">&#9733;</span>
+                {% endif %}
+                {% endfor %}
+              </div>
+              <div class="author-and-price">
+                <div class="fw-bold" style="font-size: 15px">Author: {{book.author}}</div>
+                <div class="fw-bold text">
+                  Price: $ {{book.selling_price}}
+                </div>
+              </div>
+
+              <div class="fw-bold" style="font-size: 15px; margin: 1rem; text-align: start">
+                <h6>DESCRIPTION: </h6>
+                <p id="description" data-full-description="{{ book.description }}" class="book-description">{{ truncatedDescription }}</p>
+                <a href="#" class="read-more" id="read-more-link" style="color:white;">Read more</a>
+                <a href="#" id="read-less-link" style="display: none; color:white;">Read less</a>
+              </div>
+
+              <button data-product="{{book.id}}" data-action="add" class="btn btn-primary me-md-2 update-cart" type="button" id="cart-button2-{{book.id}}">
+                Add to Cart
+                <i class="fa fa-cart-plus" aria-hidden="true"></i>
+              </button>
+              <div class="toast-container position-fixed end-0 p-3">
+                <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast2-{{book.id}}">
+                  <div class="d-flex">
+                    <div class="toast-body">
+                      <span id="toast-message2-{{book.id}}"></span> added to Cart!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const description = document.getElementById('description');
+  const readMoreLink = document.getElementById('read-more-link');
+  const readLessLink = document.getElementById('read-less-link');
+  const maxLength = 100; 
+  const fullDescription = description.dataset.fullDescription;
+
+  if (fullDescription.length > maxLength) {
+    const truncatedText = fullDescription.substring(0, maxLength) + '...';
+    description.textContent = truncatedText;
+    readMoreLink.style.display = 'inline';
+
+    readMoreLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      description.textContent = fullDescription;
+      readMoreLink.style.display = 'none';
+      readLessLink.style.display = 'inline';
+    });
+
+    readLessLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      description.textContent = truncatedText;
+      readMoreLink.style.display = 'inline';
+      readLessLink.style.display = 'none';
+    });
+  } else {
+    readMoreLink.style.display = 'none';
+  }
+{% comment %} 
+  const toastTrigger{{book.id}} = document.querySelector('[data-product="{{book.id}}"]');
+  const toastLiveExample{{book.id}} = document.getElementById('liveToast2-{{book.id}}');
+  const toastMessage{{book.id}} = document.getElementById('toast-message2-{{book.id}}');
+
+  if (toastTrigger{{book.id}}) {
+    const toastBootstrap{{book.id}} = new bootstrap.Toast(toastLiveExample{{book.id}});
+
+    toastTrigger{{book.id}}.addEventListener('click', () => {
+      // Check if the user is active
+      const isActive = "{{ user.is_active }}";
+      if (isActive === 'False') {
+          alert('Please log in to add items to the cart.');
+      } else {
+          toastMessage{{book.id}}.textContent = "{{book.title}}";
+          toastBootstrap{{book.id}}.show();
+          setTimeout(() => {
+              window.location.reload();
+          }, 1000);
+      }
+  })
+  } {% endcomment %}
+</script>
+{% if user.is_active %}
+<div class="toast-container position-fixed end-0 p-3">
+    <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast2-{{book.id}}">
+        <div class="d-flex">
+        <div class="toast-body">
+            <span id="toast-message2-{{book.id}}"></span> added to Cart!
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+{% else %}  
+<script>
+const toastTrigger{{book.id}} = document.getElementById('cart-button2-{{book.id}}')
+const toastLiveExample{{book.id}} = document.getElementById('liveToast2-{{book.id}}')
+const toastMessage{{book.id}} = document.getElementById('toast-message2-{{book.id}}');
+if (toastTrigger{{book.id}}) {
+const toastBootstrap{{book.id}} = bootstrap.Toast.getOrCreateInstance(toastLiveExample{{book.id}})
+toastTrigger{{book.id}}.addEventListener('click', () => {
+    alert("Please Login to continue shopping!");
+})
+}
+</script>
+{% endif %}
+<script>
+  const toastTrigger{{book.id}} = document.getElementById('cart-button2-{{book.id}}')
+  const toastLiveExample{{book.id}} = document.getElementById('liveToast2-{{book.id}}')
+  const toastMessage{{book.id}} = document.getElementById('toast-message2-{{book.id}}');
+  if (toastTrigger{{book.id}}) {
+  const toastBootstrap{{book.id}} = bootstrap.Toast.getOrCreateInstance(toastLiveExample{{book.id}})
+  toastTrigger{{book.id}}.addEventListener('click', () => {
+      toastMessage{{book.id}}.textContent = "{{book.title}}";
+      toastBootstrap{{book.id}}.show();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+  })
+  }
+  document.addEventListener("DOMContentLoaded", function (event) {
+    var scrollpos = sessionStorage.getItem('scrollpos');
+    if (scrollpos) {
+        window.scrollTo(0, scrollpos);
+        sessionStorage.removeItem('scrollpos');
+    }
+});
+
+window.addEventListener("beforeunload", function (e) {
+    sessionStorage.setItem('scrollpos', window.scrollY);
+});
+</script>
+
+{% endblock main-content %}

@@ -1,0 +1,34 @@
+{% extends 'app/base.html' %}
+{% block title %}Delete Card{% endblock title %}
+
+{% block main-content %}
+<section class="gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">CONFIRM DELETE</h2>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px; display: flex; flex-direction: column; align-items: center; background-color: black;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="bg-indigo text-white" style="background: black;">
+                                <div class="card" style="width: 20rem; margin: 2rem; padding: 15px;">
+                                    <p>Are you sure you want to delete this card?</p>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <a class="btn btn-primary button-style" href="{% url 'payment' %}" type="button" style="width: 5rem; display: flex; flex-direction: column; justify-content: center;">Cancel</a>
+                                            <button class="btn btn-danger button-style" type="submit">Delete</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

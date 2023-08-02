@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}ChangePwdßSuccess{% endblock title %}
+
+{% block main-content %}
+<div class="success-card-container">
+<div class="card text-center success-card" >
+    <div>
+        <i class="fa fa-6x fa-check-circle success-icon" aria-hidden="true"></i>
+    </div>
+    <div class="card-body">
+      <h1 class="card-title text-white">SUCCESS</h1>
+      <p class="card-text text-white">Password Changed Successfully ! Please login with your new password</p>
+    </div>
+  </div>
+  <a href="{% url 'logout' %}" class="btn btn-primary button-style success-btn">Logout</a>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,53 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}FpEnterEmail{% endblock title %}
+
+{% block main-content %}
+<section class="vh-100 gradient-custom">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card text-black" style="border-radius: 1rem; background-color: black; border: 2px solid white;">
+                    <div class="card-body p-5 text-center">
+                        <div class="mt-md-4">
+                            <h2 class="fw-bold mb-5 text-uppercase">Enter Email</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-outline form-black mb-4">
+                                    <input type="email" name="reset_email" id="typeEmailX" class="form-control form-control-lg" placeholder="Email">
+                                </div>
+                                <div class="login-btn">
+                                    <button class="btn btn-primary button-style" type="submit">Send OTP</button>
+                                </div>
+                            </form>
+                            <script>
+                                document.getElementById("reset-email-form").addEventListener("submit", function (event) {
+                                    event.preventDefault(); // Prevent the default form submission behavior
+                                    
+                                    // Retrieve the form data
+                                    var formData = new FormData(this);
+                            
+                                    // Send an AJAX request to submit the form data
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open("POST", "{% url 'fPEnterEmail' %}/reset");
+                                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                                    xhr.onload = function () {
+                                        if (xhr.status === 200) {
+                                            // Redirect to the reset password page
+                                            window.location.href = "{% url 'ResetPassword' %}";
+                                        } else {
+                                            // Handle errors if needed
+                                            console.error(xhr.responseText);
+                                        }
+                                    };
+                                    xhr.send(formData);
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

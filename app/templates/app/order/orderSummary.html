@@ -1,0 +1,91 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}orderSummary{% endblock title %}
+
+{% block main-content %}
+<section class="checkout-section">
+    <div class="container py-5">
+      <div class="card checkout-card">
+        <div class="card-body orderSummary-card-body" style="padding-bottom: 3rem;">
+          <div class="row d-flex pb-5">
+            <div class="py-4 d-flex flex-row" style="justify-content: space-between; padding:8rem">
+                <h3 class="text-white" style="display: flex; flex-direction: column; justify-content: center;">
+                    <b><i class="fa fa-list" aria-hidden="true"></i> ORDER SUMMARY</b>
+                </h3>
+                <div class="py-4 d-flex justify-content-end">
+                    <h6><a href="{% url 'cart' %}">Modify Order</a></h6>
+                </div>
+            </div>
+              
+            <div class="card-and-addr-col">
+              <div class="col-md-5 col-xl-4">
+                <div class="rounded d-flex flex-column p-2" style="background-color: black;color: white;border: 2px solid white;">
+                  <div class="p-2 me-3">
+                    <h4>Order Details</h4>
+                  </div>
+                  {% for item in items %}
+                  <div class="p-2 d-flex">
+                    <div class="col-8">{{ item.product.title }}</div>
+                    <div class="ms-auto">${{ item.get_total|floatformat:2 }}</div>
+                  </div>
+                  {% endfor %}
+                  <div class="border-top px-2 mx-2"></div>
+                  <div class="p-2 d-flex pt-3">
+                    <div class="col-8">Sub-Total</div>
+                    <div class="ms-auto">$ {{ order.get_cart_total|floatformat:2 }}</div>
+                  </div>
+                  <div class="p-2 d-flex">
+                    <div class="col-8">
+                      Tax <span class="fa fa-question-circle text-dark"></span>
+                    </div>
+                    <div class="ms-auto"><b>{{ tax }}</b></div>
+                  </div>
+                  <div class="border-top px-2 mx-2"></div>
+                  <div class="p-2 d-flex pt-3">
+                    <div class="col-8"><b>Total</b></div>
+                    <div class="ms-auto"><b class="text-success">${{ total }}</b></div>
+                  </div>
+                </div>
+              </div>
+                    
+            </div>
+                  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction: row; justify-content: center;">
+        <button type="button" class="btn btn-primary btn-block btn-lg"
+                data-mdb-ripple-color="dark" onclick="placeOrder()">Place Order</button>
+    </div>
+    <script>
+        function placeOrder() {
+            // Perform an AJAX request to process the order
+            fetch("{% url 'process_order' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': "{{ csrf_token }}",
+                },
+                // You can add additional data if required
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to the order success page
+                window.location.href = "{% url 'orderSuccess' %}";
+            })
+            .catch(error => {
+                console.error('Error processing order:', error);
+                // Handle the error if needed
+            });
+        }
+    </script>
+    <div class="pt-5 text-white">
+        <h6 class="mb-0" style="margin-left:8rem;">
+            <a href="{% url 'checkout' %}" class="text-body" style="color: #0d6efd !important;">
+                <i class="fas fa-long-arrow-alt-left me-2"></i> Back to Checkout
+            </a>
+        </h6>
+    </div>
+</section>
+{% endblock main-content %}

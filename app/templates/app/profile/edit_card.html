@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load static custom_filters %}
+{% block title %}Edit Card{% endblock title %}
+
+{% block main-content %}
+<section class="gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">EDIT CARD DETAILS</h2>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px; display: flex; flex-direction: column; align-items: center; background-color: black;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="bg-indigo text-white" style="background: black;">
+                                <div class="card" style="    width: 20rem;margin: 2rem;background: black;padding: 15px;color: white;border: 2px solid white;">
+                                    <form method="post" style= "display: flex;flex-direction: column;">
+                                        {% csrf_token %}
+                                        <label for="card_number">Card Number:</label>
+                                        {% comment %} <p>{% with card_number=card.card_number|decrypt_value %}
+                                            ************{{ card_number|slice:"-4:" }}
+                                            {% endwith %}</p> {% endcomment %}
+                                        <input type="text" id="card_number" name="card_number" value="********{{ card.card_number|decrypt_value|slice:"-4:"}}" style="width: 100%;"  pattern="[0-9]{16}" oninvalid="setCustomValidity('Please enter a valid card number. Max=16 numbers')"
+                                        onchange="try{setCustomValidity('')}catch(e){}"  required>
+                                        <br>
+                                        <label for="expiration_date">Expiration Date (MM/YY):</label>
+                                        <input type="text" id="expiration_date" name="expiration_date" value="{{ card.expiration_date }}" style="width: 100%;"  pattern="\d{2}/\d{2}"  oninvalid="setCustomValidity('Please match the format to MM/YY.')"
+                                        onchange="try{setCustomValidity('')}catch(e){}"  required>
+                                        <br>
+                                        <label for="security_code">Security Code:</label>
+                                        <input type="text" id="security_code" name="security_code" value="***" style="width: 100%;"  pattern="[0-9]{3}" oninvalid="setCustomValidity('Please enter a valid code. Range: 001 - 999')"
+                                        onchange="try{setCustomValidity('')}catch(e){}" required>
+                                        <br>
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            <a class="btn btn-primary button-style" href="{% url 'payment' %}" type="button" style="width: 4rem; display: flex; flex-direction: column; justify-content: center;">Back</a>
+                                            <button class="btn btn-primary button-style" type="submit">Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

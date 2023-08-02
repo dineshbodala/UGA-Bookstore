@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}ResetPwdError{% endblock title %}
+
+{% block main-content %}
+<div id='card' class="animated fadeIn aa-card" style="position: relative; width: 320px; display: block; margin: 40px auto; text-align: center; font-family: 'Source Sans Pro', sans-serif; margin-top:5rem;">
+    <div id='upper-side' class="aa-upper-side" style="padding: 2em; background-color: red; display: block; color: #fff; border-top-right-radius: 8px; border-top-left-radius: 8px;">
+        <?xml version="1.0" encoding="utf-8"?>
+        <h3 id='status' class="aa-status" style="font-weight: lighter; text-transform: uppercase; letter-spacing: 2px; font-size: 1em; margin-top: -.2em; margin-bottom: 0;">
+            Suspended
+        </h3>
+    </div>
+    <div id='lower-side' class='aa-lower-side' style="padding: 2em 2em 5em 2em; background: #fff; display: flex; flex-direction: column; border-bottom-right-radius: 8px; border-bottom-left-radius: 8px; border: 3px solid red; align-items:center;">
+        <p id='message' class='aa-message' style="margin-top: -.5em; color: #757575; letter-spacing: 1px;">
+            Your account is suspended by the Admin. Please contact the admin for more details. Thank You!
+        </p>
+        <a href="{% url 'home' %}" class="btn btn-primary button-style success-btn">Home</a>
+    </div>
+</div>
+{% endblock main-content %}

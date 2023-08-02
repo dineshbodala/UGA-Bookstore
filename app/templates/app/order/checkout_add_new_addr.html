@@ -1,0 +1,87 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}CHK New Address{% endblock title %}
+
+{% block main-content %}
+<form method="post">
+    {% csrf_token %}
+    <section class="gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">ADD NEW ADDRESS</h2>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div class="bg-indigo text-white" style="background: black;">
+                            <div class="p-5">
+                                <h3 class="mb-5 signup-text">Contact Details:</h3>
+        
+                                <div class="mb-4 pb-2">
+                                    <div class="form-outline form-white">
+                                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" name="street_address" required/>
+                                        <label class="signup-text" for="form3Examplea2">Street Address</label>
+                                    </div>
+                                </div>
+        
+                                <div class="mb-4 pb-2">
+                                    <div class="form-outline form-white">
+                                        <input type="text" id="form3Examplea3" class="form-control form-control-lg" name="apartment_suite" />
+                                        <label class="signup-text" for="form3Examplea3">Apartment, Suite, etc</label>
+                                    </div>
+                                </div>
+        
+                                <div class="row">
+                                    <div class="col-md-5 mb-4 pb-2">
+        
+                                        <div class="form-outline form-white">
+                                            <input type="text" id="form3Examplea4" class="form-control form-control-lg" name="city" required/>
+                                            <label class="signup-text" for="form3Examplea4">City</label>
+                                        </div>
+        
+                                    </div>
+                                    <div class="col-md-7 mb-4 pb-2">
+        
+                                        <div class="form-outline form-white">
+                                            <input type="text" id="form3Examplea5" class="form-control form-control-lg" name="state" required/>
+                                            <label class="signup-text" for="form3Examplea5">State</label>
+                                        </div>
+        
+                                    </div>
+                                </div>
+        
+                                <div class="mb-4 pb-2">
+                                    <div class="form-outline form-white">
+                                        <input type="text" id="form3Examplea6" class="form-control form-control-lg" name="zip_code" required/>
+                                        <label class="signup-text" for="form3Examplea6">Zip Code</label>
+                                    </div>
+                                </div>
+        
+                                <div class="mb-4 pb-2">
+                                    <div class="form-outline">
+                                        <input type="tel" id="form3Examplev4" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="contact_phone" />
+                                        <label class="signup-text" for="form3Examplev4">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="mb-4 pb-2">
+                                    <div class="form-outline form-white">
+                                        <input type="text" id="form3Examplea6" class="form-control form-control-lg" name="contact_email" />
+                                        <label class="signup-text" for="form3Examplea6">Contact Email</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5" style="width: auto;">
+                    <button class="btn btn-primary button-style" type="submit">Save and Go Back</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock main-content %}

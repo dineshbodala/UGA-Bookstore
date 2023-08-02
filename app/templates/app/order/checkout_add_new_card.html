@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% block title %}Add Card{% endblock title %}
+
+{% block main-content %}
+<section class="gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">ADD CARD DETAILS</h2>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px; display: flex; flex-direction: column; align-items: center; background-color: black;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="bg-indigo text-white" style="background: black;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                        ">
+                                <div class="card" style="width: 20rem; margin: 2rem; padding: 15px;">
+                                    <form method="post" style="display: flex; flex-direction: column;">
+                                        {% csrf_token %}
+                                        <input type="text" id="card_number" name="card_number" pattern="[0-9]{16}"  oninvalid="setCustomValidity('Please enter a valid card number. Max=16 numbers')"
+                                        onchange="try{setCustomValidity('')}catch(e){}" required>
+                                        <label for="card_number">Card Number:</label>
+                                        <br>
+                                        <input type="text" id="expiration_date" name="expiration_date" pattern="\d{2}/\d{2}"   oninvalid="setCustomValidity('Please match the format to MM/YY.')"
+                                        onchange="try{setCustomValidity('')}catch(e){}" required>
+                                        <label for="expiration_date">Expiration Date (MM/YY):</label>
+                                        <br>
+                                        <input type="text" id="security_code" name="security_code" pattern="[0-9]{3}" oninvalid="setCustomValidity('Please enter a valid code. Range: 001 - 999')"
+                                        onchange="try{setCustomValidity('')}catch(e){}" required>
+                                        <label for="security_code">Security Code:</label>
+                                        <br>
+                                        <button class="btn btn-primary button-style" type="submit">Save and Go Back</button>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

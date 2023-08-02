@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+    crossorigin="anonymous">
+
+    <link rel='stylesheet' href={% static 'app/css/owl.carousel.min.css' %} />
+    <link rel='stylesheet' href={% static 'app/css/all.min.css' %} />
+    <link rel='stylesheet' href={% static 'app/css/style.css' %} />
+
+    <style>
+      body {
+        background-color: black;
+      }
+    </style>
+
+    <title>UGA Bookstore | {% block title %}{% endblock title %}</title>
+    <script type="text/javascript"> var user = '{{request.user}}'
+    function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+    
+    </script> 
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" 
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" 
+    integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" 
+    crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <script src='{% static 'app/js/owl.carousel.min.js' %}'></script>
+    <script src='{% static 'app/js/all.min.js' %}'></script>
+    <script src='{% static 'app/js/myscript.js' %}'></script>
+
+    <nav class="navbar fixed-top navbar-expand-lg bg-body-tertiary" style="background-color: black !important">
+        <div class="container" style="width: auto">
+            <a class="navbar-brand" href="#">
+              <img src="/static/app/images/icons/bulldog.jpg" width="48px" height="48px" alt="">
+            </a>
+          </div>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><i class="fa fa-fw fa-home" style="color: grey;"></i> Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-fw fa-list" style="color: grey;"></i>
+                  Categories
+                </a>
+                <ul class="dropdown-menu" style= "background-color: black; border: 1px solid white;">
+                  <li><a class="dropdown-item" href="{% url 'category' 'FIC' %}">Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'NOF' %}">Non Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'ROM' %}">Romance</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'HOR' %}">Horror</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'THR' %}">Thriller</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'HIS' %}">History</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'BIO' %}">Biography</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'SCI' %}">Science Fiction</a></li>
+                  <li><a class="dropdown-item" href="{% url 'category' 'MYS' %}">Mystery</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'new-releases' %}" style="width: max-content"><i class="fa fa-fw fa-certificate" style="color: red;"></i> New Releases</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'top-sellers' %}" style="width: max-content"><i class="fa fa-fw fa-award" style="color: grey;"></i> Best Sellers</a>
+              </li>
+            </ul>
+          </div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'search' %}" style="width: max-content"><i class="fa fa-fw fa-search" style="color: grey;"></i> Search</a>
+            </li>
+      
+            {% if user.is_active %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'cart' %}"><i class="fa fa-fw fa-cart-arrow-down" style="color: grey;"></i> Cart <span style="color: red;">{{order.get_cart_items}}</span>
+              </a>
+            </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-fw fa-user" style="color: grey;"></i> {{ user.firstname }}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-start" style= "background-color: black; border: 1px solid white;">
+                  <li><a class="dropdown-item" href="{% url 'profile' %}"><i class="fa fa-solid fa-address-card" style="color: grey;"></i> Edit Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'orderHistory' %}"><i class="fa fa-solid fa-truck" style="color: grey;"></i> Orders</a></li>
+                  <li><a class="dropdown-item" href="{% url 'address' %}"><i class="fa fa-solid fa-address-book" style="color: grey;"></i> Your Addresses</a></li>
+                  <li><a class="dropdown-item" href="{% url 'payment' %}"><i class="fa fa-solid fa-credit-card" style="color: grey;"></i> Your Cards</a></li>
+                  <li><a class="dropdown-item" href="{% url 'change_password' %}"><i class="fa fa-solid fa-key" style="color: grey;"></i> Change Password</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-solid fa-door-open" style="color: grey;"></i> Logout</a></li>
+                </ul>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'signin' %}"><i class="fa fa-fw fa-user" style="color: grey;"></i> Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'signup' %}"><i class="fa fa-fw fa-user-plus" style="color: grey;"></i> Sign Up</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+
+      
+      {% block banner-slider %}{% endblock banner-slider %}
+      {% block information %}{% endblock information %}
+      {% block main-content %}{% endblock main-content %}
+      <footer class="footer-style fixed-bottom">
+        © 2023 Copyright : All Rights Reserved
+      </footer>
+      <script type="text/javascript" src="{% static 'app/js/cart.js' %}"></script>
+
+</body>
+</html>

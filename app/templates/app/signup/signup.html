@@ -1,0 +1,177 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Signup{% endblock title %}
+
+
+{% block main-content %}
+<form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <section class="gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">REGISTER</h2>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div class="col-lg-6" style="background-color: black;">
+                        <div class="p-5">
+                            <h3 class="signup-text" style="margin-bottom:2rem">General Infomation:</h3>
+                            <div class="row">
+                            <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                <input type="text" id="form3Examplev2" class="form-control form-control-lg" name="firstname" value="{{ request.POST.firstname|default:'' }}" required />
+                                <label class="signup-text" for="form3Examplev2">First name*</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4 pb-2">
+        
+                                <div class="form-outline">
+                                <input type="text" id="form3Examplev3" class="form-control form-control-lg" name="lastname" value="{{ request.POST.lastname|default:'' }}" required />
+                                <label class="signup-text" for="form3Examplev3">Last name*</label>
+                                </div>
+        
+                            </div>
+                            </div>  
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline">
+                                <input type="tel" id="form3Examplev4" name="phonenumber" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{ request.POST.phonenumber|default:'' }}" oninvalid="setCustomValidity('Please MATCH THE FORMAT XXX-XXX-XXXX')"
+                                onchange="try{setCustomValidity('')}catch(e){}"  required />
+                                <label class="signup-text" for="form3Examplev4">Phone Number*</label>
+                            </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="email" id="form3Examplev4" class="form-control form-control-lg" name="email" value="{{ request.POST.email|default:'' }}"  required />
+                                    <label class="signup-text" for="form3Examplev4">Email Address*</label>
+                                </div>
+                            </div>
+                            {% if email_exists %}
+                            <div class="alert alert-danger" role="alert">
+                                Email already exists. Please use a different email.
+                            </div>
+                            {% endif %}
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="password" id="form3Examplev4" class="form-control form-control-lg" pattern=".{8,}" title="Password must be at least 8 characters" name="password" required/>
+                                    <label class="signup-text" for="form3Examplev4">Password*</label>
+                                </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="password" id="confirm_password" name="confirm_password" class="form-control form-control-lg" required />
+                                    <label class="signup-text" for="confirm_password">Confirm Password*</label>
+                                </div>
+                            </div>
+                            
+                            <!-- Error Message for Password Mismatch -->
+                            {% if password_mismatch %}
+                            <div class="alert alert-danger" role="alert">
+                                Passwords do not match.
+                            </div>
+                            {% endif %}
+                            <br>
+                            <h3 class="mb-5 signup-text">Payment Information:</h3>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" placeholder="0000 0000 0000 0000" name="card_number"  value="{{ request.POST.card_number|default:'' }}"  />
+                                    <label class="signup-text" for="form3Examplev4">Card Number</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" maxlength="5" pattern="\d{2}/\d{2}" placeholder="MM/YY" name="expiration_date"  value="{{ request.POST.expiration_date|default:'' }}" >
+                                    <label class="signup-text" for="form3Examplev2">Expiration Date</label>
+                                </div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" maxlength="3" placeholder="CVV" name="security_code" value="{{ request.POST.security_code|default:'' }}" >
+                                    <label class="signup-text" for="form3Examplev3">Security Code</label>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-6 bg-indigo text-white" style="background-color: black;">
+                        <div class="p-5">
+                            <h3 class="mb-5 signup-text">Contact Details:</h3>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" name="street_address"  value="{{ request.POST.street_address|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea2">Street Address</label>
+                            </div>
+                            </div>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea3" class="form-control form-control-lg" name="apartment_suite"  value="{{ request.POST.apartment_suite|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea3">Apartment, Suite, etc</label>
+                            </div>
+                            </div>
+        
+                            <div class="row">
+                            <div class="col-md-5 mb-4 pb-2">
+        
+                                <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea4" class="form-control form-control-lg" name="city"  value="{{ request.POST.city|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea4">City</label>
+                                </div>
+        
+                            </div>
+                            <div class="col-md-7 mb-4 pb-2">
+        
+                                <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea5" class="form-control form-control-lg" name="state"  value="{{ request.POST.state|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea5">State</label>
+                                </div>
+        
+                            </div>
+                            </div>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea6" class="form-control form-control-lg" name="zip_code"  value="{{ request.POST.zip_code|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea6">Zip Code</label>
+                            </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                <input type="tel" id="form3Examplev4" name="contact_phone" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{ request.POST.contact_phone|default:'' }}" >
+                                <label class="signup-text" for="form3Examplev4">Phone Number</label>
+                                </div>
+                            </div>
+        
+                            <div class="mb-4">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea9" class="form-control form-control-lg" name="contact_email"  value="{{ request.POST.contact_email|default:'' }}" />
+                                <label class="signup-text" for="form3Examplea9">Your Email</label>
+                            </div>
+                            </div>
+        
+                            <div class="form-check d-flex justify-content-start mb-4 pb-3">
+                            <input class="form-check-input me-3" type="checkbox" value="True" id="form2Example3c" name="accept_terms" required/>
+                            <label class="form-check-label text-white" for="form2Example3">
+                                I do accept the <a href="{% static 'app/t&c.html' %}" class="text-white"><u>Terms and Conditions</u></a> of your
+                                site.
+                            </label>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5" style="width: auto;">
+                    <button class="btn btn-primary button-style" type="submit">Register</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock main-content %}
+

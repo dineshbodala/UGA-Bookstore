@@ -1,0 +1,77 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block title %}Edit Address{% endblock title %}
+
+{% block main-content %}
+<section class="gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">Edit Address</h2>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px; background-color: black; display: flex; flex-direction: column; align-items: center;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="bg-indigo text-white" style="background: black;">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="card" style="margin: 2rem; padding: 15px;background: black;border: 2px solid;color: white;">
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" value="{{ address.street_address }}" name="street_address" />
+                                                <label class="signup-text2" for="form3Examplea2">Street Address</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" id="form3Examplea3" class="form-control form-control-lg" value="{{ address.apartment_suite }}" name="apartment_suite" />
+                                                <label class="signup-text2" for="form3Examplea3">Apartment, Suite, etc</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-5 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="form3Examplea4" class="form-control form-control-lg" value="{{ address.city }}" name="city" />
+                                                    <label class="signup-text2" for="form3Examplea4">City</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 mb-4 pb-2">
+                                                <div class="form-outline form-white">
+                                                    <input type="text" id="form3Examplea5" class="form-control form-control-lg" value="{{ address.state }}" name="state" />
+                                                    <label class="signup-text2" for="form3Examplea5">State</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline form-white">
+                                                <input type="text" id="form3Examplea6" class="form-control form-control-lg" value="{{ address.zip_code }}" name="zip_code" />
+                                                <label class="signup-text2" for="form3Examplea6">Zip Code</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4 pb-2">
+                                            <div class="form-outline">
+                                                <input type="tel" id="form3Examplev4" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{ address.contact_phone }}" name="contact_phone" />
+                                                <label class="signup-text2" for="form3Examplev4">Phone Number</label>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                                            <a class="btn btn-primary button-style" href="{% url 'address' %}" type="button" style="width: 4rem; display: flex; flex-direction: column; justify-content: center;">Back</a>
+                                            <input type="submit" class="btn btn-primary button-style" value="Save Address" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

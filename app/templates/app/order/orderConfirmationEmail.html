@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Confirmation</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6;">
+    <h2 style="color: #0066cc;">Order Confirmation</h2>
+    <p>Hello {{ user_id }},</p>
+    <p>Your order has been confirmed with the following details:</p>
+
+    <table style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #f2f2f2;">Product Title</th>
+                <th style="border: 1px solid #dddddd; text-align: left; padding: 8px; background-color: #f2f2f2;">Quantity Ordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order_items %}
+            <tr>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ item.product_title }}</td>
+                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">{{ item.quantity_ordered }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="margin-bottom: 10px;">Cart Total: ${{ cart_total }}</p>
+    <p style="margin-bottom: 10px;">Transaction ID: {{ transaction_id }}</p>
+
+    <p>Thank you for your order!</p>
+    <p style="font-weight: bold;">Regards,</p>
+    <p style="font-weight: bold;">Team-7 Online Book Store</p>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}OrderSuccess{% endblock title %}
+
+{% block main-content %}
+<div class="success-card-container">
+<div class="card text-center success-card" >
+    <div>
+        <i class="fa fa-6x fa-check-circle success-icon" aria-hidden="true"></i>
+    </div>
+    <div class="card-body">
+      <h1 class="card-title text-white">Books Have Been Added To Cart</h1>
+      <p class="card-text text-white">Visit Cart For Checkout</p>
+    </div>
+  </div>
+  <a href="{% url 'cart' %}" class="btn btn-primary button-style success-btn">Go to Cart</a>
+</div>
+{% endblock main-content %}

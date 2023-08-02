@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %} 
+{% load static %} 
+{% block title %}Search{% endblock title %}
+
+{% block main-content %}
+<div class="input-group search-container mb-3">
+  <form class="d-flex" method="POST" action="{% url 'searchBooks' %}" style="width: 100%; justify-content: center">
+    {% csrf_token %}
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div style="display: flex; flex-direction: row; margin-bottom: 1rem;">
+        <input
+          type="text"
+          class="form-control"
+          aria-label="Search"
+          placeholder="Search"
+          name="searched"
+          style="width: 30rem;"
+          required
+        />
+        <div class="input-group-append">
+          <button
+            type="button"
+            class="btn btn-outline-secondary dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            changeable="true"
+          >
+            Filter
+          </button>
+          <ul class="dropdown-menu search-dropdown">
+            <li><a class="dropdown-item" href="#" data-value="Title">Title</a></li>
+            <li><a class="dropdown-item" href="#" data-value="ISBN">ISBN</a></li>
+            <li><a class="dropdown-item" href="#" data-value="Author">Author</a></li>
+          </ul>
+        </div>
+        <input type="hidden" name="filter_option" id="filterOption" value="Title">
+      </div>
+        <button type="submit" class="btn btn-primary" style="width: 10rem;"><i class="fa fa-search"></i></button>
+    </div>
+  </form>
+</div>
+
+<script>
+  $(".dropdown-item").on("click", function () {
+    var filterValue = $(this).data("value");
+    $(".dropdown-toggle[changeable=true]").text(filterValue);
+    $("#filterOption").val(filterValue);
+  });
+</script>
+{% endblock main-content %}

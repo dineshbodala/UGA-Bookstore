@@ -1,0 +1,47 @@
+/* styles.css */
+
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: white;
+}
+
+a {
+    color: #0d6efd;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li, ol li {
+    margin-bottom: 0.5rem;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Add more custom styles here if needed */
+
+/* Media Query for Mobile Devices */
+@media (max-width: 767px) {
+    .container {
+        padding: 0.5rem;
+    }
+}

@@ -1,0 +1,103 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}SearchResults{% endblock title %}
+
+{% block main-content %}
+<h2>Search Results</h2>
+{% if results %}
+<div class="category-container" style="
+height: 100vh; margin-bottom: 10rem">
+        <div class="col-sm-9" style="
+        display: contents;" >
+            <div class="row" style="margin:2rem;">
+            {% for b in results  %}
+            <script>console.log({{user.is_active}});</script>
+                <div class="col text-center mb-4">
+                    <a href="#" class="btn">
+                        <div style="border: 5px solid white; border-radius:1rem; width: 22rem;">
+                            <img src="{{b.cover.url}}" width="300px" height="300px" alt="No Image"/>
+                            <div class="details-container">
+                                <div class="fw-bold">
+                                    {{ b.title|slice:":30" }}
+                                    {% if b.title|length > 30 %} ... {% endif %}
+                                </div>
+                                <div class="fw-bold" style="font-family: cursive; font-size: 15px" >{{b.author}}</div>
+                                <div class="fw-bold text-danger">
+                                    $ {{b.selling_price}}
+                                </div>
+                                <div class="rating">
+                                    {% for i in "12345" %}
+                                    {% if b.rating >= forloop.counter %}
+                                        <span class="star" style="color: gold;">&#9733;</span>
+                                    {% else %}
+                                        <span class="star">&#9733;</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    <a href="{% url 'bookDetails' book_isbn=b.ISBN %}" class="btn btn-light" role="button" style="border: 2px solid black">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> View Details</a>
+                                        <button data-product={{b.id}} data-action="add" class="btn btn-primary me-md-2 update-cart" type="button" id="cart-button-{{b.id}}">
+                                            Add to Cart
+                                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                                    </button>
+                                  </div>
+                                
+                            </div>
+                        </div>
+                    </a>
+                </div> 
+                {% if user.is_active %}
+                    <script>console.log('yo yo yo yo')</script>
+                    <div class="toast-container position-fixed end-0 p-3">
+                        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast-{{b.id}}">
+                            <div class="d-flex">
+                            <div class="toast-body">
+                                <span id="toast-message-{{b.id}}"></span> added to Cart!
+                            </div>
+                            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}  
+                <script>
+                    const toastTrigger{{b.id}} = document.getElementById('cart-button-{{b.id}}')
+                    const toastLiveExample{{b.id}} = document.getElementById('liveToast-{{b.id}}')
+                    const toastMessage{{b.id}} = document.getElementById('toast-message-{{b.id}}');
+                    if (toastTrigger{{b.id}}) {
+                    const toastBootstrap{{b.id}} = bootstrap.Toast.getOrCreateInstance(toastLiveExample{{b.id}})
+                    toastTrigger{{b.id}}.addEventListener('click', () => {
+                        alert("Please Login to continue shopping!");
+                    })
+                    }
+                </script>
+                {% endif %} 
+
+                <script>
+                    const toastTrigger{{b.id}} = document.getElementById('cart-button-{{b.id}}')
+                    const toastLiveExample{{b.id}} = document.getElementById('liveToast-{{b.id}}')
+                    const toastMessage{{b.id}} = document.getElementById('toast-message-{{b.id}}');
+                    if (toastTrigger{{b.id}}) {
+                    const toastBootstrap{{b.id}} = bootstrap.Toast.getOrCreateInstance(toastLiveExample{{b.id}})
+                    toastTrigger{{b.id}}.addEventListener('click', () => {
+                            toastMessage{{b.id}}.textContent = "{{b.title}}";
+                        toastBootstrap{{b.id}}.show();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    })
+                    }
+                </script>   
+            {% endfor %}
+            </div>
+        </div>
+</div>
+{% else %}
+<div style="color: white !important;display: flex;background-color: transparent !important;flex-direction: column;text-align: center;justify-content: center;height: 100vh;">
+    <div style="color: white; font-size: 3rem; font-weight: 500;">No results found!</div>
+        <div style= "width: 100%; display: flex; flex-direction: row; align-items: center; justify-content: center;">
+            <a href="{% url 'search' %}" class="btn btn-primary button-style success-btn">Back to Search</a>    
+        </div>
+</div>
+{% endif %}
+{% endblock main-content %}

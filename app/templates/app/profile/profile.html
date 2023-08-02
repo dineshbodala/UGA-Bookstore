@@ -1,0 +1,138 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}profile{% endblock title %}
+
+{% block main-content %}
+<form method="post">
+    {% csrf_token %}
+    <section class="gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="text-center">
+            <h2 class="fw-bold mb-3 text-uppercase">EDIT PROFILE</h2>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                    <div class="row g-0">
+                        <div style="background: black;">
+                        <div class="p-5" style="display: flex; flex-direction: column; align-items: center;">
+                            <h3 class="signup-text" style="margin-bottom:2rem;">General Infomation:</h3>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline" style="display: flex; flex-direction: row;align-items: center;">
+                                <div style="margin: 2rem;color: white;font-weight: 700;font-size: 20px; width: 10rem;">FIRST NAME: </div>
+                                <input type="text" id="form3Examplev2" class="form-control form-control-lg" value={{user.firstname}} name="firstname" required style="width: 25rem;"/>
+                                </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+        
+                                <div class="form-outline" style="display: flex; flex-direction: row;align-items: center;">
+                                    <div style="margin: 2rem;color: white;font-weight: 700;font-size: 20px; width: 10rem;">LAST NAME: </div>
+                                <input type="text" id="form3Examplev3" class="form-control form-control-lg" value={{user.lastname}} name="lastname" required style="width: 25rem;" />
+                                </div>
+        
+                            </div>
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline" style="display: flex; flex-direction: row;align-items: center;">
+                                <div style="margin: 2rem;color: white;font-weight: 700;font-size: 20px; width: 10rem;">PHONE: </div>
+                                <input type="tel" id="form3Examplev4" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value={{user.phonenumber}} name="phonenumber" style="width: 25rem;" required/>
+                            </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline" style="display: flex; flex-direction: row;align-items: center;">
+                                    <div style="margin: 2rem;color: white;font-weight: 700;font-size: 20px; width: 10rem;">EMAIL: </div>
+                                    <input type="email" id="form3Examplev4" class="form-control form-control-lg" value={{user.email}} name="email" style="width: 25rem;" readonly />
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <a href="{% url 'address' %}" style="margin:1rem;">Your Address</a>
+                                <a href="{% url 'payment'%}" style="margin:1rem;">Your Payment Info</a>
+                            </div>
+                            {% comment %} <h3 class="mb-5 signup-text">Payment Information:</h3>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" {% if user.card_number %}value="{{ user.card_number }}"{% endif %} name="card_number" />
+                                    <label class="signup-text" for="form3Examplev4">Card Number</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" maxlength="5" pattern="\d{2}/\d{2}" {% if user.expiration_date %}value="{{ user.expiration_date }}"{% endif %} name="expiration_date" />
+                                    <label class="signup-text" for="form3Examplev2">Expiration Date</label>
+                                </div>
+                                </div>
+                                <div class="col-md-6 mb-4 pb-2">
+                                <div class="form-outline">
+                                    <input type="text" id="form3Examplev4" class="form-control form-control-lg" maxlength="3" {% if user.security_code %}value="{{ user.security_code }}"{% endif %} name="security_code" />
+                                    <label class="signup-text" for="form3Examplev3">Security Code</label>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-lg-6 bg-indigo text-white" style="background: black;">
+                        <div class="p-5">
+                            <h3 class="mb-5 signup-text">Contact Details:</h3>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea2" class="form-control form-control-lg" {% if user.street_address %}value={{user.street_address}}{% endif %} name="street_address" />
+                                <label class="signup-text" for="form3Examplea2">Street Address</label>
+                            </div>
+                            </div>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea3" class="form-control form-control-lg" {% if user.apartment_suite %}value={{user.apartment_suite}}{% endif %} name="apartment_suite" />
+                                <label class="signup-text" for="form3Examplea3">Apartment, Suite, etc</label>
+                            </div>
+                            </div>
+        
+                            <div class="row">
+                            <div class="col-md-5 mb-4 pb-2">
+        
+                                <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea4" class="form-control form-control-lg" {% if user.city %}value={{user.city}}{% endif %} name="city" />
+                                <label class="signup-text" for="form3Examplea4">City</label>
+                                </div>
+        
+                            </div>
+                            <div class="col-md-7 mb-4 pb-2">
+        
+                                <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea5" class="form-control form-control-lg" {% if user.state %}value={{user.state}}{% endif %} name="state" />
+                                <label class="signup-text" for="form3Examplea5">State</label>
+                                </div>
+        
+                            </div>
+                            </div>
+        
+                            <div class="mb-4 pb-2">
+                            <div class="form-outline form-white">
+                                <input type="text" id="form3Examplea6" class="form-control form-control-lg" {% if user.zip_code %}value={{user.zip_code}}{% endif %} name="zip_code" />
+                                <label class="signup-text" for="form3Examplea6">Zip Code</label>
+                            </div>
+                            </div>
+                            <div class="mb-4 pb-2">
+                                <div class="form-outline">
+                                <input type="tel" id="form3Examplev4" class="form-control form-control-lg" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" {% if user.contact_phone %}value={{user.contact_phone }}{% endif %} name="contact_phone" />
+                                <label class="signup-text" for="form3Examplev4">Phone Number</label>
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5" style="width: auto;">
+                    <button class="btn btn-primary button-style" type="submit">Update Profile</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+{% endblock main-content %}
+
